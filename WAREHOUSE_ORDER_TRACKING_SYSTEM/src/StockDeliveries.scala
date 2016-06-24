@@ -9,17 +9,18 @@ object StockDeliveries {
   var StockOrders : ArrayBuffer[Array[String]] = ArrayBuffer()
 
   def currentStock(): Unit ={
-    val bufferedSource = io.Source.fromFile("src/orderStock")
-    val stock: ArrayBuffer[Array[String]]=ArrayBuffer()
+    val bufferedSource = io.Source.fromFile("/src/orderStock")
+    val temp: ArrayBuffer[Array[String]]=ArrayBuffer()
     for (line <- bufferedSource.getLines) {
-      stock.append(line.split(","))
+      temp.append(line.split(","))
     }
     bufferedSource.close
-    for(x <- stock) {
+    for(x <- temp) {
       val r=x(3).split("\\|").map(_.trim)
       val p: Item= new Item(x(0).toInt ,x(1), r, x(2).toInt)
       StockList.append(p)
     }
+
   }
   def addSuplier(name: String){
     supplierList.add(name)

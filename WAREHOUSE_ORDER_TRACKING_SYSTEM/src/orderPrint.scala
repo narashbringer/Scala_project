@@ -14,7 +14,7 @@ object orderPrint {
     }
     bufferedSource.close
   }
-  def printOrder(Orders:ArrayBuffer[Array[String]]): Unit ={
+  def printOrders(Orders:ArrayBuffer[Array[String]]): Unit ={
     for(i <- Orders) {    //prints out each of the lines formatted nicely
       println("%s,%s,%s,%s,%s,%s,%s,%s,%s".format(i(0), i(1), i(2), i(3), i(4), i(5), i(6), i(7), i(8)))
     }
@@ -50,6 +50,7 @@ object orderPrint {
     println("5: notify accounts of new Stock")
     println("6: check item location")
     println("7: root to take between items")
+    println("\nchose number of option you want input any other number to exit")
   }
   var Users: ArrayBuffer[WareHouseWorker]= ArrayBuffer()
   def users(): Unit ={
@@ -70,64 +71,28 @@ object orderPrint {
   }
 
   def main(args: Array[String]) {
+    def input(): Int={
+      val c : Int = readInt()
+      c
+    }
     readFile()
     println("login")
     users()
     print("username")
-    var username = readLine()
+    val username = readLine()
     println()
     print("password")
-    var password = readLine()
+    val password = readLine()
     var loged: Boolean = login(Users,username,password)
     while(loged == false){
       printMenu()
-      var choice= scala.io.StdIn.readInt()
-      while(choice==1 || choice==2 ||choice ==3|| choice==4 || choice==5 || choice==6 || choice==7 ) {
-        val x = (choice: @switch) match{
-         case 1 =>
-           printOrder(Orders)
-          case 2 =>
-           do {
-              println("Add supply order Item Name, New Stock Number, Supplyer, Item Number, is it a new Item true/false")
-              StockDeliveries.addStockOrder(readLine(), readInt(), readLine(), readInt(), readBoolean())
-              println("next order? y/n")
-           }while('y'.equals(readChar()))
-         case 3 =>
-           println("select order number to update and take")
-           val chosenOrder = scala.io.StdIn.readInt()
-           updateStock.decormentStock(Orders, chosenOrder)
-           selectOrderAndUpdate(chosenOrder, scala.io.StdIn.readLine())
-            writetoFile(Orders)
-          case 4=>
-            println("select order number to send to accounts")
-            val chosenOrder = scala.io.StdIn.readInt()
-            notifyAccounts.readFile()
-            notifyAccounts.mail(Orders, chosenOrder )
-          case 5=>
-            println("select stock Order to send to accounts by Item ID")
-            val chosenOrderID = scala.io.StdIn.readInt()
-            notifyAccounts.readStockFile()
-            //notifyAccounts.mailStock(notifyAccounts.StockSent,  )
-          case 6=>
-            StockDeliveries.currentStock
-            println("select item to locate")
-            val x = readLine()
-            val p: Item = StockDeliveries.search(x,StockDeliveries.StockList)
-            println(p.Location(0)+" "+ p.Location(1)+" "+ p.Location(2))
-          case 7 =>
-            readFile()
-            println("chose order to pick root for")
-            TravalingSalesMan.traval(Orders(readInt()))
-        }
-
-        printMenu()
-        choice =scala.io.StdIn.readInt()
+        MenuChocies.menu(input(),Orders)
       }
       println("logout? t/f")
       loged= readBoolean()
 
     }
-  }
+
 
 }
 
