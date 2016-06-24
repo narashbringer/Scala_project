@@ -9,7 +9,7 @@ object StockDeliveries {
   var StockOrders : ArrayBuffer[Array[String]] = ArrayBuffer()
 
   def currentStock(): Unit ={
-    val bufferedSource = io.Source.fromFile("/src/orderStock")
+    val bufferedSource = io.Source.fromFile("src/orderStock")
     val temp: ArrayBuffer[Array[String]]=ArrayBuffer()
     for (line <- bufferedSource.getLines) {
       temp.append(line.split(","))

@@ -36,7 +36,7 @@ object MenuChocies{
           println("select stock Order to send to accounts by Item ID")
           val chosenOrderID = scala.io.StdIn.readInt()
           notifyAccounts.readStockFile()
-        //notifyAccounts.mailStock(notifyAccounts.StockSent,  )
+          notifyAccounts.mailStock(StockDeliveries.StockList, chosenOrderID)
         case 6 =>
           StockDeliveries.currentStock
           println("select item to locate")

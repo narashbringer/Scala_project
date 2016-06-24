@@ -7,6 +7,8 @@ import scala.collection.mutable.ArrayBuffer
   */
 object notifyAccounts  {
   var Order: ArrayBuffer[Array[String]]= ArrayBuffer()
+  var Stock: ArrayBuffer[Array[String]]= ArrayBuffer()
+  var StockSent: ArrayBuffer[Item]= ArrayBuffer()
   def  readFile(): Unit = {
 
       val bufferedSource = io.Source.fromFile("src/accountUpdate.csv")
@@ -28,10 +30,8 @@ object notifyAccounts  {
     }
     out.close()
   }
-  var Stock: ArrayBuffer[Array[String]]= ArrayBuffer()
-  var StockSent: ArrayBuffer[Item]= ArrayBuffer()
-  def  readStockFile(): Unit = {
 
+  def  readStockFile(): Unit = {
     val bufferedSource = io.Source.fromFile("src/StockUpdate.csv")
     for (line <- bufferedSource.getLines) {
       Stock.append(line.split(","))
@@ -46,10 +46,11 @@ object notifyAccounts  {
 
   def mailStock(Orders: ArrayBuffer[Item],chosenOrder: Int): Unit ={
     val out = new PrintWriter(new File("src/StockUpdate.csv"));
-    val r = Orders(chosenOrder)
-    StockSent.append(r)
+    val p: Item = StockDeliveries.StockList(chosenOrder-1)
+    StockSent.append(p)
+
     for (i<- StockSent){
-      out.write( i.itemID + ','+i.itemName + ','+i.Stock + ','+i.Location(0) + '|'+i.Location(1) + '|'+i.Location(2) + ','+"\n")
+      out.write(i.itemID.toString + "," + i.itemName + ','+i.Stock + ','+i.Location(0) + '|'+i.Location(1) + '|'+i.Location(2) + ','+"\n")
     }
     out.close()
   }
