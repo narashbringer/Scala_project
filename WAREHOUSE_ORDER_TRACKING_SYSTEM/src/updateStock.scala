@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by jonspyreas on 6/15/16.
   */
-
+//should have made recersive/ think there might be a small error in line 16 forgot to change deliminator
 object updateStock{
   var ItemsPare : mutable.HashMap[String, Int]= mutable.HashMap()
   def decormentStock(Order: ArrayBuffer[Array[String]], Ordernum : Int ): Unit ={
