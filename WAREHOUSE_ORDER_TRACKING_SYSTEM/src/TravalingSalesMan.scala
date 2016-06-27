@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by jonspyreas on 6/17/16.
   */
-
+// does nopt work never had time ton figure it out
 object TravalingSalesMan{
   def traval(Order: Array[String]) {
     var orderitems: ArrayBuffer[Item]= ArrayBuffer()
